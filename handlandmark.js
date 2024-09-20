@@ -158,7 +158,7 @@ function onResultsHands(results) {
   canvasCtx3.clearRect(0, 0, out3.width, out3.height);
   canvasCtx3.drawImage(
     results.image, 0, 0, out3.width, out3.height);
-  const params = [8, 12, 16];
+  const params = [8, 12, 16, 20];
   // const params = [18];
   const handLm = [];
   if (results.multiHandLandmarks) {
@@ -198,16 +198,16 @@ function onResultsHands(results) {
   // console.log(handLm);
 
   switch (JSON.stringify(handLm)) {
-    case '[1,0,0]':
+    case '[1,0,0,0]':
       mouseMoveHandler(newX);
       break;
-    case '[1,1,0]':
+    case '[1,1,0,0]':
       if (startAcum == 0) {
         startGame();
         startAcum = 1;
       }
       break;
-    case '[1,1,1]':
+    case '[1,1,1,0]':
       location.reload();
       break;
 
