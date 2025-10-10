@@ -1,66 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hand Gesture Dodgeball</title>
 
-<head>
-    <meta charset="utf-8">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"> -->
-    <link rel="stylesheet" href="dodgeball.css">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.css" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="demo.css" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.1/hands.js" crossorigin="anonymous"></script>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-<body>
+    <link rel="stylesheet" href="dodgeball.css" />
 
+    <link rel="icon" href="favicon.ico" />
 
-    <!-- CONTENTS -->
-    <div class="container" style="margin-top: 20px;">
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.1/hands.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-        <div class="columns">
+  <body>
+    <header class="hero">
+      <div class="hero-content">
+        <h1>Hand Gesture Brick Breaker</h1>
+        <p>Kontrol permainan klasik hanya dengan gerakan tanganmu!</p>
+      </div>
+      <div class="floating-elements">
+        <span class="emoji">🧱</span>
+        <span class="emoji">🏀</span>
+        <span class="emoji">👋</span>
+        <span class="emoji">🧱</span>
+        <span class="emoji">🏀</span>
+      </div>
+    </header>
 
-            <!-- WEBCAM INPUT -->
-            <div class="column">
-                <article class="panel is-info" style="display: none;">
-                    <p class="panel-heading">
-                        Webcam Input
-                    </p>
-                    <div class="panel-block">
-                        <video class="input_video3"></video>
-                    </div>
-                </article>
-            </div>
-
-            <canvas id="myCanvas" width="480" height="320"></canvas>
-            <!-- <button id="runButton">Start game</button><br><br> -->
-
-            <!-- MEDIAPIPE OUTPUT -->
-            <div class="column">
-                <article class="panel is-info">
-                    <p class="panel-heading">
-                        Mediapipe Hands Detection
-                    </p>
-                    <div class="panel-block">
-                        <canvas class="output3" width="360px" height="240px"></canvas>
-                    </div>
-                </article>
-            </div>
+    <main>
+      <section class="instructions">
+        <h2>Cara Bermain</h2>
+        <div class="instruction-cards">
+          <div class="card">
+            <h3>☝️ Gerakkan Paddle</h3>
+            <p>
+              Gunakan <strong>satu jari</strong> (telunjuk) untuk mengarahkan
+              paddle ke kiri dan ke kanan.
+            </p>
+          </div>
+          <div class="card">
+            <h3>✌️ Mulai Permainan</h3>
+            <p>
+              Tunjukkan <strong>dua jari</strong> (telunjuk & tengah) untuk
+              memulai bola bergerak.
+            </p>
+          </div>
+          <div class="card">
+            <h3>👌 Ulangi Permainan</h3>
+            <p>
+              Tunjukkan <strong>tiga jari</strong> (telunjuk, tengah, & manis)
+              untuk memulai ulang permainan.
+            </p>
+          </div>
         </div>
+      </section>
 
-        <div class="loading">
-            <div class="spinner"></div>
+      <section class="game-area">
+        <div class="game-container">
+          <canvas id="myCanvas" width="640" height="480"></canvas>
+
+          <div class="media-pipe-output">
+            <article class="panel is-info">
+              <p class="panel-heading">Webcam Input</p>
+              <div class="panel-block">
+                <video class="input_video3"></video>
+              </div>
+            </article>
+            <article class="panel is-info">
+              <p class="panel-heading">Mediapipe Hands Detection</p>
+              <div class="panel-block">
+                <canvas class="output3" width="360px" height="240px"></canvas>
+              </div>
+            </article>
+          </div>
         </div>
-        <div class="control3">
-        </div>
+      </section>
+    </main>
 
-        <script type="text/javascript" src="handlandmark.js"></script>
-</body>
+    <div class="loading">
+      <div class="spinner"></div>
+    </div>
 
+    <script type="text/javascript" src="handlandmark.js"></script>
+
+    <div id="win-popup" class="popup-container">
+      <div class="popup-content">
+        <h2>🎉 You Won! 🎉</h2>
+        <p>Selamat, Anda berhasil menghancurkan semua bata!</p>
+        <button id="play-again-btn">Main Lagi</button>
+      </div>
+    </div>
+
+    <div id="game-over-popup" class="popup-container">
+      <div class="popup-content">
+        <h2>Game Over</h2>
+        <p>Sayang sekali, bola tidak tertangkap. Coba lagi!</p>
+        <button id="try-again-btn">Coba Lagi</button>
+      </div>
+    </div>
+  </body>
 </html>
